@@ -1,15 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import BootScreen from "./components/BootScreen.jsx";
 import RecruiterToggle from "./components/RecruiterToggle.jsx";
-import NodeGraph from "./components/NodeGraph.jsx";
-import Nav from "./components/Nav.jsx";
-import Hero from "./components/Hero.jsx";
-import Section from "./components/Section.jsx";
-import Projects from "./components/Projects.jsx";
+import Home from "./pages/Home.jsx";
+import ProjectPage from "./pages/ProjectPage.jsx";
 import { useMode } from "./hooks/modeContext.js";
-import useActiveSection from "./hooks/useActiveSection.js";
-import { sectionIds } from "./data/site.js";
 
 const BOOT_KEY = "boot-done";
 
@@ -21,12 +17,28 @@ function bootAlreadyDone() {
   }
 }
 
+function ScrollManager() {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      const el = document.getElementById(hash.slice(1));
+      if (el) {
+        el.scrollIntoView();
+        return;
+      }
+    }
+    window.scrollTo(0, 0);
+  }, [pathname, hash]);
+
+  return null;
+}
+
 function App() {
   const { recruiter } = useMode();
+  const { pathname } = useLocation();
   const [bootDone, setBootDone] = useState(bootAlreadyDone);
-  const [focusId, setFocusId] = useState(null);
-  const activeSection = useActiveSection(sectionIds);
-  const showBoot = !bootDone && !recruiter;
+  const showBoot = !bootDone && !recruiter && pathname === "/";
 
   function finishBoot() {
     try {
@@ -39,31 +51,18 @@ function App() {
 
   return (
     <>
+      <ScrollManager />
       <RecruiterToggle />
 
       <AnimatePresence>
         {showBoot && <BootScreen key="boot" onDone={finishBoot} />}
       </AnimatePresence>
 
-      {!recruiter && <NodeGraph section={activeSection} focusId={focusId} />}
-
-      <Nav active={activeSection} />
-
-      <main>
-        <Hero active={!showBoot} />
-
-        <Section id="projects" title="Projects">
-          <Projects onFocus={setFocusId} />
-        </Section>
-
-        <Section id="experience" title="Experience">
-          <p className="muted">Work and education timeline arrives in a later phase.</p>
-        </Section>
-
-        <Section id="contact" title="Contact">
-          <p className="muted">Contact links and resume button arrive in a later phase.</p>
-        </Section>
-      </main>
+      <Routes>
+        <Route path="/" element={<Home heroActive={!showBoot} />} />
+        <Route path="/projects/:id" element={<ProjectPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
     </>
   );
 }

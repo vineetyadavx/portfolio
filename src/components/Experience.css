@@ -1,0 +1,95 @@
+.exp {
+    max-width: 640px;
+  }
+  
+  .exp__intro {
+    margin-bottom: 2.5rem;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+  }
+  
+  .exp__group {
+    margin-bottom: 2.5rem;
+  }
+  
+  .exp__group-title {
+    margin-bottom: 1.25rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  
+  .exp__list {
+    margin: 0;
+    padding: 0 0 0 1.5rem;
+    list-style: none;
+    border-left: 1px solid var(--border);
+  }
+  
+  .exp__item {
+    position: relative;
+    padding-bottom: 1.75rem;
+  }
+  
+  .exp__item:last-child {
+    padding-bottom: 0.25rem;
+  }
+  
+  .exp__dot {
+    position: absolute;
+    top: 0.4rem;
+    left: calc(-1.5rem - 4px);
+    width: 9px;
+    height: 9px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent-glow);
+  }
+  
+  .exp__dates {
+    margin: 0 0 0.2rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+  
+  .exp__role {
+    margin: 0 0 0.15rem;
+    font-size: 1.1rem;
+  }
+  
+  .exp__org {
+    margin: 0 0 0.6rem;
+    color: var(--text-muted);
+  }
+  
+  .exp__points {
+    margin: 0;
+    padding-left: 1.1rem;
+    font-size: 0.92rem;
+  }
+  
+  .exp__points li {
+    margin-bottom: 0.3rem;
+  }
+  
+  .exp__points li::marker {
+    color: var(--accent);
+  }
+  
+  .exp__langs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.8rem;
+  }
+  
+  .exp__langs li {
+    padding: 0.3rem 0.75rem;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+  }
