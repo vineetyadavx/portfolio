@@ -20,7 +20,9 @@ function targetsFor(section, w, h) {
   const base = Math.min(w, h);
   switch (section) {
     case "projects":
-      return { x: 0.5 * w, y: 0.5 * h, s: 0.6 * base };
+      return mobile
+        ? { x: 0.5 * w, y: 0.5 * h, s: 0.62 * base }
+        : { x: 0.78 * w, y: 0.5 * h, s: 0.42 * base };
     case "experience":
       return {
         x: mobile ? 0.5 * w : 0.8 * w,
@@ -38,15 +40,17 @@ function targetsFor(section, w, h) {
   }
 }
 
-export default function NodeGraph({ section }) {
+export default function NodeGraph({ section, focusId = null }) {
   const canvasRef = useRef(null);
   const sectionRef = useRef(section);
+  const focusRef = useRef(focusId);
   const apiRef = useRef(null);
 
   useEffect(() => {
     sectionRef.current = section;
+    focusRef.current = focusId;
     apiRef.current?.refresh();
-  }, [section]);
+  }, [section, focusId]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -110,7 +114,7 @@ export default function NodeGraph({ section }) {
 
     function line(a, b, alpha) {
       if (alpha <= 0.01) return;
-      ctx.strokeStyle = `rgba(${ACCENT}, ${alpha})`;
+      ctx.strokeStyle = `rgba(${ACCENT}, ${Math.min(alpha, 1)})`;
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.moveTo(a.x, a.y);
@@ -163,21 +167,48 @@ export default function NodeGraph({ section }) {
       const pos = layout(time, rot);
       const e = state.emph;
 
+      const focusId = sectionRef.current === "projects" ? focusRef.current : null;
+      const focused = focusId
+        ? graph.projects.find((p) => p.id === focusId)
+        : null;
+
       graph.projects.forEach((n) => {
-        line(pos.me, pos[n.id], e.edge * 0.9);
-        n.links.forEach((id) => line(pos[n.id], pos[id], e.edge * 0.7));
+        const isFocus = focused && focused.id === n.id;
+        const dim = focused && !isFocus ? 0.25 : 1;
+        line(pos.me, pos[n.id], e.edge * 0.9 * dim);
+        n.links.forEach((id) =>
+          line(pos[n.id], pos[id], e.edge * (isFocus ? 1.4 : 0.7) * dim)
+        );
       });
       graph.meLinks.forEach((id) => line(pos.me, pos[id], e.edge * 0.6));
       graph.skillEdges.forEach(([a, b]) => line(pos[a], pos[b], e.edge * 0.5));
 
       graph.skills.forEach((n) => {
-        dot(pos[n.id], mobile ? 3 : 4, `rgb(${MUTED})`, e.skill, 6, false);
-        label(pos[n.id], n.label, e.skill * 0.8, mobile ? 10 : 11, "side");
+        const lit = focused && focused.links.includes(n.id);
+        const a = lit ? 1 : e.skill * (focused ? 0.45 : 1);
+        dot(
+          pos[n.id],
+          (mobile ? 3 : 4) + (lit ? 1.5 : 0),
+          `rgb(${lit ? ACCENT : MUTED})`,
+          a,
+          lit ? 14 : 6,
+          false
+        );
+        label(pos[n.id], n.label, lit ? 1 : a * 0.8, mobile ? 10 : 11, "side");
       });
 
       graph.projects.forEach((n) => {
-        dot(pos[n.id], mobile ? 5 : 6, `rgb(${ACCENT})`, e.project, 14, true);
-        label(pos[n.id], n.label, e.project, mobile ? 11 : 13, "side");
+        const isFocus = focused && focused.id === n.id;
+        const a = e.project * (focused && !isFocus ? 0.35 : 1);
+        dot(
+          pos[n.id],
+          (mobile ? 5 : 6) + (isFocus ? 2 : 0),
+          `rgb(${ACCENT})`,
+          a,
+          isFocus ? 28 : 14,
+          true
+        );
+        label(pos[n.id], n.label, a, mobile ? 11 : 13, "side");
       });
 
       const pulse = reduced ? 0 : Math.sin(time * 0.002) * 1.5;

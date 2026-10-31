@@ -1,0 +1,250 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  
+  .card__preview {
+    position: relative;
+    display: grid;
+    place-items: center;
+    height: 110px;
+    flex-shrink: 0;
+    background:
+      linear-gradient(135deg, var(--accent-soft), transparent),
+      var(--bg-elevated);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  
+  .card__preview::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 28px 28px;
+    opacity: 0.3;
+  }
+  
+  .card__preview img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .card__num {
+    position: relative;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--accent);
+    opacity: 0.4;
+  }
+  
+  .card__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    padding: 1.1rem 1.25rem 1.25rem;
+  }
+  
+  .card__meta {
+    margin: 0 0 0.35rem;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+  
+  .card__title {
+    font-size: 1.45rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card__blurb {
+    margin-bottom: 0.75rem;
+    font-size: 0.92rem;
+    color: var(--text-muted);
+  }
+  
+  .card__highlights {
+    margin: 0 0 0.9rem;
+    padding-left: 1.1rem;
+    font-size: 0.85rem;
+  }
+  
+  .card__highlights li {
+    margin-bottom: 0.3rem;
+  }
+  
+  .card__highlights li::marker {
+    color: var(--accent);
+  }
+  
+  .card__stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin: 0 0 auto;
+    padding: 0;
+    list-style: none;
+    font-size: 0.7rem;
+  }
+  
+  .card__stack li {
+    padding: 0.2rem 0.5rem;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+  
+  .card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1rem;
+  }
+  
+  .card__actions .btn {
+    padding: 0.45rem 0.9rem;
+    font-size: 0.8rem;
+  }
+  
+  /* fan */
+  .fan {
+    --card-w: min(400px, 86vw);
+    --card-h: 560px;
+    --gap: 170px;
+    outline: none;
+  }
+  
+  .fan:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 8px;
+    border-radius: var(--radius);
+  }
+  
+  .fan__stage {
+    position: relative;
+    height: calc(var(--card-h) + 30px);
+    margin-top: 1rem;
+    perspective: 1600px;
+    touch-action: pan-y;
+  }
+  
+  .fan__slot {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    width: var(--card-w);
+    height: var(--card-h);
+    margin-left: calc(var(--card-w) / -2);
+    border-radius: var(--radius);
+    cursor: pointer;
+    opacity: calc(1 - var(--abs) * 0.3);
+    filter: brightness(0.65);
+    transform: translateX(calc(var(--o) * var(--gap)))
+      translateZ(calc(var(--abs) * -140px))
+      rotateY(calc(var(--o) * -16deg))
+      rotate(calc(var(--o) * 1.5deg))
+      scale(calc(1 - var(--abs) * 0.05));
+    transition:
+      transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1),
+      opacity 0.4s ease,
+      filter 0.4s ease,
+      box-shadow 0.4s ease;
+  }
+  
+  .fan__slot:hover {
+    filter: brightness(0.85);
+  }
+  
+  .fan__slot.is-active {
+    cursor: default;
+    filter: none;
+    box-shadow:
+      0 0 48px var(--accent-soft),
+      0 30px 60px rgba(0, 0, 0, 0.45);
+  }
+  
+  .fan__slot.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  
+  .fan__inner {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .fan__controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+  
+  .fan__controls .btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+  
+  .fan__dots {
+    display: flex;
+    gap: 0.6rem;
+  }
+  
+  .fan__dots button {
+    width: 12px;
+    height: 12px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+  
+  .fan__dots button.is-active {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 10px var(--accent-glow);
+  }
+  
+  .fan__hint {
+    margin: 1rem 0 0;
+    text-align: center;
+    font-size: 0.75rem;
+  }
+  
+  @media (min-width: 1000px) {
+    .fan {
+      width: 62%;
+    }
+  }
+  
+  @media (max-width: 720px) {
+    .fan {
+      --card-w: min(86vw, 360px);
+      --card-h: 660px;
+      --gap: 70px;
+    }
+  }
+  
+  /* flat grid used in Recruiter Mode */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.25rem;
+  }
+  
+  .grid .card {
+    height: auto;
+  }

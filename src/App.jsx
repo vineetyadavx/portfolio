@@ -6,6 +6,7 @@ import NodeGraph from "./components/NodeGraph.jsx";
 import Nav from "./components/Nav.jsx";
 import Hero from "./components/Hero.jsx";
 import Section from "./components/Section.jsx";
+import Projects from "./components/Projects.jsx";
 import { useMode } from "./hooks/modeContext.js";
 import useActiveSection from "./hooks/useActiveSection.js";
 import { sectionIds } from "./data/site.js";
@@ -23,6 +24,7 @@ function bootAlreadyDone() {
 function App() {
   const { recruiter } = useMode();
   const [bootDone, setBootDone] = useState(bootAlreadyDone);
+  const [focusId, setFocusId] = useState(null);
   const activeSection = useActiveSection(sectionIds);
   const showBoot = !bootDone && !recruiter;
 
@@ -43,7 +45,7 @@ function App() {
         {showBoot && <BootScreen key="boot" onDone={finishBoot} />}
       </AnimatePresence>
 
-      {!recruiter && <NodeGraph section={activeSection} />}
+      {!recruiter && <NodeGraph section={activeSection} focusId={focusId} />}
 
       <Nav active={activeSection} />
 
@@ -51,7 +53,7 @@ function App() {
         <Hero active={!showBoot} />
 
         <Section id="projects" title="Projects">
-          <p className="muted">Project cards arrive in a later phase.</p>
+          <Projects onFocus={setFocusId} />
         </Section>
 
         <Section id="experience" title="Experience">
