@@ -2,6 +2,9 @@ import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import BootScreen from "./components/BootScreen.jsx";
 import RecruiterToggle from "./components/RecruiterToggle.jsx";
+import Nav from "./components/Nav.jsx";
+import Hero from "./components/Hero.jsx";
+import Section from "./components/Section.jsx";
 import { useMode } from "./hooks/modeContext.js";
 
 const BOOT_KEY = "boot-done";
@@ -36,16 +39,22 @@ function App() {
         {showBoot && <BootScreen key="boot" onDone={finishBoot} />}
       </AnimatePresence>
 
-      <main className="container" style={{ paddingTop: "20vh" }}>
-        <p className="mono muted">vineet@portfolio:~$</p>
-        <h1 style={{ fontSize: "clamp(2rem, 6vw, 4rem)" }}>
-          Hi, I'm <span style={{ color: "var(--accent)" }}>Vineet</span>
-          <span className="cursor" />
-        </h1>
-        <p className="muted">
-          Placeholder home. Mode: {recruiter ? "recruiter" : "full"}. The real
-          hero comes next phase.
-        </p>
+      <Nav />
+
+      <main>
+        <Hero active={!showBoot} />
+
+        <Section id="projects" title="Projects">
+          <p className="muted">Project cards arrive in a later phase.</p>
+        </Section>
+
+        <Section id="experience" title="Experience">
+          <p className="muted">Work and education timeline arrives in a later phase.</p>
+        </Section>
+
+        <Section id="contact" title="Contact">
+          <p className="muted">Contact links and resume button arrive in a later phase.</p>
+        </Section>
       </main>
     </>
   );
