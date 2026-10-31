@@ -4,11 +4,14 @@ import { BrowserRouter } from "react-router-dom";
 import "./styles/tokens.css";
 import "./styles/global.css";
 import App from "./App.jsx";
+import ModeProvider from "./components/ModeProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <ModeProvider>
+        <App />
+      </ModeProvider>
     </BrowserRouter>
   </StrictMode>
 );

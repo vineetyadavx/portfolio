@@ -1,0 +1,120 @@
+.boot {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    display: grid;
+    place-items: center;
+    padding: 1.25rem;
+    background: var(--bg);
+  }
+  
+  .boot::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: 0.18;
+    mask-image: radial-gradient(ellipse at center, #000 20%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 20%, transparent 70%);
+    pointer-events: none;
+  }
+  
+  .boot__window {
+    position: relative;
+    width: min(100%, 720px);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: 0 0 60px var(--accent-soft);
+    overflow: hidden;
+  }
+  
+  .boot__bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.8rem;
+  }
+  
+  .boot__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+  
+  .boot__title {
+    margin-left: 8px;
+  }
+  
+  .boot__body {
+    padding: 20px;
+    min-height: 280px;
+    font-size: 0.9rem;
+  }
+  
+  .boot__line {
+    margin: 0 0 0.35rem;
+    color: var(--text-muted);
+    animation: boot-in 0.25s ease-out;
+  }
+  
+  .boot__line--status {
+    color: var(--accent);
+  }
+  
+  .boot__line--cmd {
+    color: var(--text);
+  }
+  
+  .boot__ps1 {
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  
+  .boot__prompt {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 1rem;
+  }
+  
+  .boot__input {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    color: var(--text);
+    font: inherit;
+    caret-color: var(--accent);
+  }
+  
+  .boot__input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.6;
+  }
+  
+  .boot__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 0 20px 20px;
+  }
+  
+  @keyframes boot-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }

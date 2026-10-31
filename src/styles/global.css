@@ -109,3 +109,46 @@ button {
     transition-duration: 0.01ms !important;
   }
 }
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.1rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  
+  .btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    text-decoration: none;
+  }
+  
+  .btn--primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #04121a;
+    font-weight: 700;
+  }
+  
+  .btn--primary:hover {
+    background: transparent;
+    color: var(--accent);
+  }
+  
+  html[data-recruiter="on"] {
+    scroll-behavior: auto;
+  }
+  
+  [data-recruiter="on"] *,
+  [data-recruiter="on"] *::before,
+  [data-recruiter="on"] *::after {
+    animation: none !important;
+    transition: none !important;
+  }

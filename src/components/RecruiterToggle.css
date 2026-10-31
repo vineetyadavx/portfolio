@@ -1,0 +1,20 @@
+.recruiter-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 100;
+    padding: 8px 14px;
+    font-size: 0.8rem;
+    background: rgba(13, 18, 24, 0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  
+  .recruiter-toggle:hover,
+  .recruiter-toggle[aria-pressed="true"] {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
