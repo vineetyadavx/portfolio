@@ -1,0 +1,19 @@
+:root {
+    --bg: #07090c;
+    --bg-elevated: #0d1218;
+    --panel: #111821;
+    --border: #1d2935;
+    --text: #e6edf3;
+    --text-muted: #8b98a5;
+    --accent: #22d3ee;
+    --accent-soft: rgba(34, 211, 238, 0.12);
+    --accent-glow: rgba(34, 211, 238, 0.35);
+  
+    --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  
+    --radius: 14px;
+    --radius-sm: 8px;
+    --max-width: 1120px;
+    --nav-height: 64px;
+  }
