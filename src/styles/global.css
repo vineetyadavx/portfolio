@@ -167,3 +167,8 @@ button {
   .section__hash {
     color: var(--accent);
   }
+
+  main {
+    position: relative;
+    z-index: 1;
+  }

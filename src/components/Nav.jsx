@@ -1,10 +1,8 @@
 import { useState } from "react";
-import { sections, sectionIds } from "../data/site.js";
-import useActiveSection from "../hooks/useActiveSection.js";
+import { sections } from "../data/site.js";
 import "./Nav.css";
 
-export default function Nav() {
-  const active = useActiveSection(sectionIds);
+export default function Nav({ active }) {
   const [open, setOpen] = useState(false);
 
   return (

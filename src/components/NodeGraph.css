@@ -1,0 +1,23 @@
+.node-graph {
+    --graph-opacity: 1;
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    animation: graph-in 1.4s ease-out both;
+  }
+  
+  @keyframes graph-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: var(--graph-opacity);
+    }
+  }
+  
+  @media (max-width: 720px) {
+    .node-graph {
+      --graph-opacity: 0.6;
+    }
+  }
